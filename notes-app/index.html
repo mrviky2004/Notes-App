@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App - Organize Your Thoughts</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="notes-app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-sticky-note"></i>
+                    <h1>NotesApp</h1>
+                </div>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search notes...">
+                </div>
+                <div class="theme-toggle">
+                    <button id="theme-btn" class="theme-btn">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="app-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Quick Actions</h3>
+                    <button id="new-note-btn" class="sidebar-btn primary">
+                        <i class="fas fa-plus"></i>
+                        New Note
+                    </button>
+                    <button id="favorites-btn" class="sidebar-btn">
+                        <i class="fas fa-star"></i>
+                        Favorites
+                    </button>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Categories</h3>
+                    <div class="category-list">
+                        <button class="category-btn active" data-category="all">
+                            <i class="fas fa-inbox"></i>
+                            All Notes
+                            <span class="count" id="all-count">0</span>
+                        </button>
+                        <button class="category-btn" data-category="personal">
+                            <i class="fas fa-user"></i>
+                            Personal
+                            <span class="count">0</span>
+                        </button>
+                        <button class="category-btn" data-category="work">
+                            <i class="fas fa-briefcase"></i>
+                            Work
+                            <span class="count">0</span>
+                        </button>
+                        <button class="category-btn" data-category="ideas">
+                            <i class="fas fa-lightbulb"></i>
+                            Ideas
+                            <span class="count">0</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sidebar-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-notes">0</span>
+                        <span class="stat-label">Total Notes</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="favorite-notes">0</span>
+                        <span class="stat-label">Favorites</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Notes Form -->
+                <section class="notes-form-section">
+                    <div class="form-header">
+                        <h2 id="form-title">
+                            <i class="fas fa-edit"></i>
+                            Create New Note
+                        </h2>
+                        <div class="form-actions">
+                            <button id="cancel-btn" class="btn-secondary" style="display: none;">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="notes-form">
+                        <div class="form-group">
+                            <input
+                                id="title-input"
+                                type="text"
+                                placeholder="Note title..."
+                                class="title-input"
+                                maxlength="100"
+                            >
+                            <span class="char-count" id="title-count">0/100</span>
+                        </div>
+
+                        <div class="form-group">
+                            <select id="category-select" class="category-select">
+                                <option value="personal">Personal</option>
+                                <option value="work">Work</option>
+                                <option value="ideas">Ideas</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea
+                                id="content-textarea"
+                                placeholder="Start typing your note here..."
+                                rows="8"
+                                class="content-textarea"
+                                maxlength="2000"
+                            ></textarea>
+                            <span class="char-count" id="content-count">0/2000</span>
+                        </div>
+
+                        <div class="form-footer">
+                            <div class="form-options">
+                                <label class="favorite-check">
+                                    <input type="checkbox" id="favorite-check">
+                                    <span class="checkmark">
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    Mark as Favorite
+                                </label>
+                            </div>
+                            <button id="save-btn" class="btn-primary">
+                                <i class="fas fa-save"></i>
+                                Save Note
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Notes List -->
+                <section class="notes-list-section">
+                    <div class="section-header">
+                        <h2>
+                            <i class="fas fa-list"></i>
+                            Your Notes
+                            <span class="notes-count" id="notes-count">(0)</span>
+                        </h2>
+                        <div class="list-actions">
+                            <div class="view-toggle">
+                                <button class="view-btn active" data-view="grid">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                                <button class="view-btn" data-view="list">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                            <button id="clear-all-btn" class="btn-danger" style="display: none;">
+                                <i class="fas fa-trash"></i>
+                                Clear All
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="empty-state" class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-sticky-note"></i>
+                        </div>
+                        <h3>No Notes Yet</h3>
+                        <p>Create your first note to get started!</p>
+                        <button id="create-first-note" class="btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Create Your First Note
+                        </button>
+                    </div>
+
+                    <!-- Notes Grid/List -->
+                    <div id="notes-container" class="notes-container grid-view" style="display: none;"></div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
